@@ -1,5 +1,5 @@
 # Supertram
-This is the back end for the Supertram web application as part of the System Design and Development module. The frontend component can be found [here](https://github.com/giridharpodala/SuperTramApp.FrontEnd).
+This is the back end for the Supertram web application as part of the System Design and Development module. The frontend component can be found [here](https://github.com/giridhar07/SuperTramApp.MVC/tree/main/SuperTramApp.FrontEnd).
 
 ## Instructions
 ### Step 1
