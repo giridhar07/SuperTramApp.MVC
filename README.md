@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Supertram
+This is the back end for the Supertram web application as part of the System Design and Development module. The frontend component can be found [here](https://github.com/giridharpodala/SuperTramApp.FrontEnd).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Instructions
+### Step 1
+Open the backend project and check the dependencies. If the project does not match with your ASP.NET version, then update the packages and ASP.NET to version 8.0.
 
-## Available Scripts
+### Step 2
 
-In the project directory, you can run:
+Complete the data migration by running the following command in the package manager console: `Add-Migration SuperTramApp -context SuperTramAppContext`
 
-### `npm start`
+Make sure that you select SuperTramApp.Data in the default project dropdown.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Step 3
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Update the database by running the following command in the terminal: `update-database -context SuperTramAppContext`
 
-### `npm test`
+### Step 4
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Set up the React project by opening the project and opening a terminal window. Navigate to the root folder of the project and then run the command `npm install` if it is not already installed. Then run the following command to start the project: `npm start`
 
-### `npm run build`
+### Step 5
+If the tram information has not been set up correctly in the database, there is a SQL script that can be executed. Please execute Scrips/JourneyPlanner.sql to correctly add the relevant tables, tram stop and order information to the database.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Using the Application
+### Buying Tickets
+You will need to register for an account before buying a ticket. Once you have registered, you can sign in and then start the ticket buying process by clicking on "Buy Ticket".
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+On the next screen, any ticket type can be selected. Once selected, the ticket needs to be added to the card, and then the checkout button can be pressed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Stripe Payments
+The following dummy details can be used to similate a payment through Strike when buying a ticket:
 
-### `npm run eject`
+**Card Number**: 4242 4242 4242 4242 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Expiry Date**: 02/25 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**CVC**: 000 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**ZIP**: 12345
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Activating Tickets
+If the email the user signed up with is legitimate, then an email should be sent to that email address with information regarding the purchase.
 
-## Learn More
+The app will then redirect to the wallet, where the purchased ticket is visible and can be activated by pressing the "Activate Ticket" button. The QR code will change to reflect that it has been activated.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Community Page / Chat Function
+#### Joining a Room
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Click on the Community page and put your name in as the username. When prompted for a room name, use a name of one of the tram lines, such as "Yellow", "Blue", etc.
 
-### Code Splitting
+After clicking the "Join Room" button, you will then be connected to the correct room. All users currently in the room will be notified that another user has joined the room.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Messaging
 
-### Analyzing the Bundle Size
+Messages can be sent to other users in the same room by using the input box. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Leaving a Room
 
-### Making a Progressive Web App
+A room can be left by clcking the "Leave Room" button. All users currently in the room will be notified that a user has left the room.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Journey Planner
+#### Planning a Journey 
 
-### Advanced Configuration
+When on the main screen, there is the option to either enter tram stop names or choose from a list. If the full name of the tram stop is unknown, entering part of the tram stop name will provide a few relevant options. Once search Journey has been pressed, a route will be provided that tells the user how to get between the stops they have chosen.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+There will also be a button to save this route to their Favourites.
 
-### Deployment
+### Using the Map
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Every tram stop on the Supertram network, along with routes which are indicated by colour, are displayed on the map. These stops can be clicked and a pop up will appear indicating the tram stop name. At the bottom of the page, a list of upcoming departures will also appear.
 
-### `npm run build` fails to minify
+### Tram Stop Departures
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If one of the termini is clicked, the map will change just to highlight the route and stops from the previously highlighted tram stop to the termini that was picked from the departure list.
+
+### Find My Location
+
+There is also a "Find my Location" button. This feature was not fully implemented; it was intended to track the user's location and find the nearest tram stop to them. In its current state, it finds the users location (after accepting a prompt in the browser) and stores -- and prints -- their coordinates to the console.
+
+### Favourite Routes
+Favourite Routes can be found by clicking on the star icon on the main page. This will then take the user to the Favourite Routes page, where all the favourites will be displayed. Routes can be deleted by pressing the "Delete" button. If the "View" button is pressed, this will display the upcoming departures from the start stop of their favourite route.
+
+
+
+
